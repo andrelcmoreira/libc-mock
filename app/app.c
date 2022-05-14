@@ -24,8 +24,7 @@ void write_msg(const char *buff) {
 }
 
 #ifdef MAIN
-int main(int argc, char *argv[])
-{
+int main() {
   write_msg("test");
   return 0;
 }

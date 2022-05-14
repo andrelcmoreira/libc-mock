@@ -17,7 +17,7 @@ void failure_testcase() {
                   return -1;
                 });
 
-  write_msg("ola");
+  write_msg("hello");
 
   // CHECK_CALL(write, 1);
 }
@@ -25,14 +25,14 @@ void failure_testcase() {
 void success_testcase() {
   printf("running %s\n", __FUNCTION__);
 
-  MOCK_FUNCTION(ssize_t, write,
-                (int fd, const void *buf, size_t count),
-                {
-                  printf("hello from mock :)\n");
-                  return 1;
-                });
+  MOCK_FUNCTION_WITH_ACTION(ssize_t, write,
+                            (int fd, const void *buf, size_t count),
+                            {
+                              printf("hello from mock :)\n");
+                              return 1;
+                            });
 
-  write_msg("ola");
+  write_msg("hello");
 
   // CHECK_CALL(write, 1);
 }

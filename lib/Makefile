@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -fPIC -shared
+CFLAGS = -fPIC -shared -ldl
 SRC = preload.c
 OUTPUT = libpreload.so
 
