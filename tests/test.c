@@ -1,7 +1,6 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
-
-#include <sys/socket.h>
 
 #include "app.h"
 #include "libc_mock.h"
@@ -11,7 +10,7 @@ void failure_testcase() {
 
   MOCK_FUNCTION(ssize_t, write, (int fd, const void *buf, size_t count));
 
-  write_msg("hello");
+  assert(write_msg("hello") == -1);
 
   // CHECK_CALL(write, 1);
 }
@@ -23,10 +22,10 @@ void success_testcase() {
                             (int fd, const void *buf, size_t count),
                             {
                               printf("hello from mock :)\n");
-                              return 1;
+                              return count;
                             });
 
-  write_msg("hello");
+  assert(!write_msg("hello"));
 
   // CHECK_CALL(write, 1);
 }

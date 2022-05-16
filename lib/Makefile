@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -fPIC -shared -ldl
-SRC = preload.c
-OUTPUT = libpreload.so
+SRC = libc_mock.c
+OUTPUT = libc-mock.so
 
 all:
 	$(CC) $(CFLAGS) $(SRC) -o $(OUTPUT)

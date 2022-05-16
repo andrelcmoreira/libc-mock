@@ -1,5 +1,5 @@
 CC = gcc
-LDFLAGS = -Wl,--rpath=$(PWD)/lib -L$(PWD)/lib -lpreload
+LDFLAGS = -Wl,--rpath=$(PWD)/lib -L$(PWD)/lib -lc-mock
 SRC = test.c $(PWD)/app/app.c
 INCLUDE = -I$(PWD)/app -I$(PWD)/lib
 OUTPUT = test
