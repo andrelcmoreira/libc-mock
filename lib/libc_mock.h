@@ -13,9 +13,10 @@
 
 #define CHECK_CALL(name, times)
 
-#define DECLARE_SETTER(ret, name, ret_ptr, ptr_params) \
-  ret set_##name(ret_ptr (*_##name_ptr) ptr_params);
+#define DECLARE_SETTER(name, ret_ptr, ptr_params) \
+  void set_##name(ret_ptr (*_##name_ptr) ptr_params);
 
-DECLARE_SETTER(void, write, ssize_t, (int, const void *, size_t));
+DECLARE_SETTER(write, ssize_t, (int, const void *, size_t));
+DECLARE_SETTER(read, ssize_t, (int, void *, size_t));
 
 #endif  // LIBC_MOCK_H_

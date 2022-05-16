@@ -5,7 +5,7 @@
 #include "app.h"
 #include "libc_mock.h"
 
-void failure_testcase() {
+void write_failure_testcase() {
   printf("running %s\n", __FUNCTION__);
 
   MOCK_FUNCTION(ssize_t, write, (int fd, const void *buf, size_t count));
@@ -15,7 +15,7 @@ void failure_testcase() {
   // CHECK_CALL(write, 1);
 }
 
-void success_testcase() {
+void write_success_testcase() {
   printf("running %s\n", __FUNCTION__);
 
   MOCK_FUNCTION_WITH_ACTION(ssize_t, write,
@@ -31,8 +31,8 @@ void success_testcase() {
 }
 
 int main() {
-  success_testcase();
-  failure_testcase();
+  write_success_testcase();
+  write_failure_testcase();
 
   return 0;
 }
