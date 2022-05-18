@@ -27,10 +27,6 @@ int write_msg(const char *buff) {
 int read_msg(size_t max_size, char *out_buff) {
   int fd;
 
-  if (!out_buff || max_size < 1) {
-    return -1;
-  }
-
   fd = open(FILENAME, O_RDONLY);
 
   if (fd > 0) {

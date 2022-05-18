@@ -11,8 +11,6 @@
 #define MOCK_VOID_FUNCTION(ret, name, params) \
   MOCK_FUNCTION_WITH_ACTION(ret, name, params, { return; })
 
-#define CHECK_CALL(name, times)
-
 #define DECLARE_SETTER(name, ret_ptr, ptr_params) \
   void set_##name(ret_ptr (*_##name_ptr) ptr_params);
 
