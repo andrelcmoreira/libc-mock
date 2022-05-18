@@ -1,13 +1,13 @@
 .PHONY: lib
 
-all: lib test
+all: lib tests
 
-test:
-	make -C tests/ all
+tests:
+	make -C samples/file/tests/ all
 
 lib:
-	make -C lib/ all
+	make -C src/ all
 
 clean:
-	make -C lib/ clean
-	make -C tests/ clean
+	make -C src/ clean
+	make -C samples/file/tests/ clean

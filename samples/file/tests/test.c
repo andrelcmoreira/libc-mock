@@ -20,7 +20,6 @@ void write_success_testcase() {
   MOCK_FUNCTION_WITH_ACTION(ssize_t, write,
                             (int fd, const void *buf, size_t count),
                             {
-                              printf("hello from mock :)\n");
                               return count;
                             });
 
@@ -58,7 +57,6 @@ void read_failure_testcase() {
 
   assert(read_msg(sizeof(read_buffer), read_buffer) == -1);
   assert(!strcmp(read_buffer, ""));
-
 }
 
 int main() {

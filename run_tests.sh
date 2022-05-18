@@ -1,3 +1,3 @@
 #!/bin/sh
 
-LD_PRELOAD=./lib/libc-mock.so $1
+LD_PRELOAD=./src/libc-mock.so $1
