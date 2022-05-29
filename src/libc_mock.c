@@ -4,18 +4,27 @@
 
 #include <dlfcn.h>
 
-#define GENERATE_LIBC_HOOK(ret, name, params_sig, param_types, param_values) \
+#define DECLARE_MOCK_IMPL(ret, name, params_sig, param_types, param_values) \
+  DECLARE_SETTER_IMPL(ret, name, param_types) \
+  DECLARE_COUNTER_HANDLERS_IMPL(name) \
+  GENERATE_LIBC_HOOK(ret, name, params_sig, param_types, param_values)
+
+#define DECLARE_SETTER_IMPL(ret, name, param_types) \
   ret (*mocked_##name) param_types; \
   void set_##name(ret (*_##name_ptr) param_types) { \
     mocked_##name = _##name_ptr; \
-  } \
-  uint8_t called_times_##name = 0; \
+  }
+
+#define DECLARE_COUNTER_HANDLERS_IMPL(name) \
+  static uint8_t called_times_##name; \
   void set_called_times_##name(const uint8_t count) { \
     called_times_##name = count; \
   } \
   uint8_t get_called_times_##name() { \
     return called_times_##name; \
-  } \
+  }
+
+#define GENERATE_LIBC_HOOK(ret, name, params_sig, param_types, param_values) \
   ret name params_sig { \
     if (mocked_##name) { \
       set_called_times_##name(get_called_times_##name() + 1); \
@@ -30,12 +39,12 @@
     return (typeof(ret))0; \
   }
 
-GENERATE_LIBC_HOOK(ssize_t, write,
-                   (int fd, const void *buffer, size_t length),
-                   (int, const void *, size_t),
-                   (fd, buffer, length));
+DECLARE_MOCK_IMPL(ssize_t, write,
+                  (int fd, const void *buffer, size_t length),
+                  (int, const void *, size_t),
+                  (fd, buffer, length));
 
-GENERATE_LIBC_HOOK(ssize_t, read,
-                   (int fd, void *buffer, size_t length),
-                   (int, void *, size_t),
-                   (fd, buffer, length));
+DECLARE_MOCK_IMPL(ssize_t, read,
+                  (int fd, void *buffer, size_t length),
+                  (int, void *, size_t),
+                  (fd, buffer, length));
