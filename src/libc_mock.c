@@ -9,8 +9,16 @@
   void set_##name(ret (*_##name_ptr) param_types) { \
     mocked_##name = _##name_ptr; \
   } \
+  uint8_t called_times_##name = 0; \
+  void set_called_times_##name(const uint8_t count) { \
+    called_times_##name = count; \
+  } \
+  uint8_t get_called_times_##name() { \
+    return called_times_##name; \
+  } \
   ret name params_sig { \
     if (mocked_##name) { \
+      set_called_times_##name(get_called_times_##name() + 1); \
       return mocked_##name param_values; \
     } \
     void *_##name_ptr = dlsym(RTLD_NEXT, #name); \

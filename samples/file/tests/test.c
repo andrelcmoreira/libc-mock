@@ -12,6 +12,8 @@ void write_failure_testcase() {
   MOCK_FUNCTION(ssize_t, write, (int fd, const void *buf, size_t count));
 
   assert(write_msg("hello") == -1);
+
+  CHECK_CALL(write, 1);
 }
 
 void write_success_testcase() {
@@ -24,6 +26,8 @@ void write_success_testcase() {
                             });
 
   assert(!write_msg("hello"));
+
+  CHECK_CALL(write, 1);
 }
 
 void read_success_testcase() {
@@ -42,6 +46,8 @@ void read_success_testcase() {
 
   assert(!read_msg(sizeof(read_buffer), read_buffer));
   assert(!strcmp(mocked_buffer, read_buffer));
+
+  CHECK_CALL(read, 1);
 }
 
 void read_failure_testcase() {
@@ -57,6 +63,8 @@ void read_failure_testcase() {
 
   assert(read_msg(sizeof(read_buffer), read_buffer) == -1);
   assert(!strcmp(read_buffer, ""));
+
+  CHECK_CALL(read, 1);
 }
 
 int main() {
