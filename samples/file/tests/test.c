@@ -44,7 +44,7 @@ void read_success_testcase() {
                               return size;
                             });
 
-  assert(!read_msg(sizeof(read_buffer), read_buffer));
+  assert(!read_msg(read_buffer, sizeof(read_buffer)));
   assert(!strcmp(mocked_buffer, read_buffer));
 
   CHECK_CALL(read, 1);
@@ -61,7 +61,7 @@ void read_failure_testcase() {
                               return 0;
                             });
 
-  assert(read_msg(sizeof(read_buffer), read_buffer) == -1);
+  assert(read_msg(read_buffer, sizeof(read_buffer)) == -1);
   assert(!strcmp(read_buffer, ""));
 
   CHECK_CALL(read, 1);

@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdint.h>
+#include <sys/socket.h>
 
 #include <dlfcn.h>
 
@@ -48,3 +49,18 @@ DECLARE_MOCK_IMPL(ssize_t, read,
                   (int fd, void *buffer, size_t length),
                   (int, void *, size_t),
                   (fd, buffer, length));
+
+DECLARE_MOCK_IMPL(ssize_t, send,
+                  (int sockfd, const void *buf, size_t len, int flags),
+                  (int, const void *, size_t, int),
+                  (sockfd, buf, len, flags));
+
+DECLARE_MOCK_IMPL(ssize_t, recv,
+                  (int sockfd, void *buf, size_t len, int flags),
+                  (int, void *, size_t, int),
+                  (sockfd, buf, len, flags));
+
+DECLARE_MOCK_IMPL(int, connect,
+                  (int sockfd, const struct sockaddr *addr, socklen_t addrlen),
+                  (int, const struct sockaddr *, socklen_t),
+                  (sockfd, addr, addrlen));

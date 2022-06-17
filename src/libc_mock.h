@@ -1,6 +1,8 @@
 #ifndef LIBC_MOCK_H_
 #define LIBC_MOCK_H_
 
+#include <sys/socket.h>
+
 #define MOCK_FUNCTION_WITH_ACTION(ret, name, params, action) \
   ret mock_##name params { action } \
   set_##name (mock_##name);
@@ -31,5 +33,8 @@
 
 __DECLARE_MOCK(write, ssize_t, (int, const void *, size_t));
 __DECLARE_MOCK(read, ssize_t, (int, void *, size_t));
+__DECLARE_MOCK(send, ssize_t, (int, const void *, size_t, int));
+__DECLARE_MOCK(recv, ssize_t, (int, void *, size_t, int));
+__DECLARE_MOCK(connect, int, (int, const struct sockaddr *, socklen_t));
 
 #endif  // LIBC_MOCK_H_

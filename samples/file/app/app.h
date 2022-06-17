@@ -2,6 +2,6 @@
 #define APP_H_
 
 int write_msg(const char *buff);
-int read_msg(size_t max_size, char *buff);
+int read_msg(char *buff, size_t max_size);
 
 #endif  // APP_H_

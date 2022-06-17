@@ -24,7 +24,7 @@ int write_msg(const char *buff) {
   return -1;
 }
 
-int read_msg(size_t max_size, char *out_buff) {
+int read_msg(char *out_buff, size_t max_size) {
   int fd;
 
   fd = open(FILENAME, O_RDONLY);
@@ -53,7 +53,7 @@ int main() {
 
   printf("data written successfully!\n");
 
-  if (read_msg(sizeof(buffer), buffer)) {
+  if (read_msg(buffer, sizeof(buffer))) {
     printf("failure to read the data\n");
     return -1;
   }
